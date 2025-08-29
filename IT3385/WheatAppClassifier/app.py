@@ -3,7 +3,7 @@ import pandas as pd
 from pycaret.classification import load_model, predict_model
 
 # Load the exported PyCaret model
-model = load_model(r'C:\Users\Exnonn\Downloads\MLOps\wheat_classifier')
+model = load_model(r'wheat_classifier')
 
 # App title
 st.title("Wheat Type Classification")
@@ -28,12 +28,8 @@ if st.button("Predict"):
 
     # Make prediction
     prediction = predict_model(model, data=input_data)
-
-    # Debug: show the whole prediction dataframe
     st.write(prediction)
-
-    # Safely get predicted class (last column is usually the predicted label)
-    predicted_class = prediction.iloc[0, -1]
-
+    # Get predicted class
+    predicted_class = prediction.loc[0, 'prediction_label']
     # Show prediction
     st.success(f"Predicted Wheat Type: {predicted_class}")
